@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.digital.dao.TypeDAO">
+	<select id = "getAllType" resultType="com.digital.pojo.Type">
+		select * from type
+	</select>
+	<select id = "addType" parameterType="com.digital.pojo.Type">
+		insert into type (name) values(#{name})
+	</select>
+	<select id ="deleteType" parameterType="java.util.Map"> 
+		delete from type where id in
+	<foreach item="item" index="index" collection="ids" open="("
+		separator="," close=")">
+		#{item}
+	</foreach>
+	</select>
+	<select id="editType" parameterType="java.util.Map">
+	    	update type set name=#{name} where id=#{ids}	
+		<foreach item="item" index="index" collection="ids" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+		
+	</select>
+</mapper>
